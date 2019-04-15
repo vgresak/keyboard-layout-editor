@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.util.Map.Entry.comparingByKey;
+
 
 public class LayoutExporterImpl implements LayoutExporter {
 
@@ -46,20 +48,35 @@ public class LayoutExporterImpl implements LayoutExporter {
 
     private void printKey(ModelKey key, PrintWriter pw) {
         pw.printf("\tkey %s { %n", key.getKeycode());
-        if (StringUtils.isNotBlank(key.getType())) {
-            pw.printf("\t\ttype= \"%s\"%s%n", key.getType(), key.getValues().isEmpty() ? "" : ",");
+        printTypes(key, pw);
+        printSymbols(key, pw);
+        pw.println("\n\t};");
+    }
+
+    private void printTypes(ModelKey key, PrintWriter pw) {
+        Map<Integer, String> types = key.getTypes();
+        List<String> typesDefinition = types.entrySet().stream()
+                .sorted(comparingByKey())
+                .filter(entry -> StringUtils.isNotBlank(entry.getValue()))
+                .map(entry -> String.format("\t\ttype[group%d]= \"%s\"", entry.getKey(), entry.getValue()))
+                .collect(Collectors.toList());
+        pw.print(StringUtils.join(typesDefinition, ",\n"));
+        if (key.getValues() != null && !key.getValues().isEmpty()) {
+            pw.printf(",\n");
         }
+    }
+
+    private void printSymbols(ModelKey key, PrintWriter pw) {
         Map<Integer, List<String>> values = key.getValues();
-        List<String> symbols = values.keySet().stream()
-                .sorted()
-                .filter(group -> values.get(group) != null && !values.get(group).isEmpty())
-                .map(group -> {
-                    List<String> groupValues = values.get(group).stream()
+        List<String> symbols = values.entrySet().stream()
+                .sorted(comparingByKey())
+                .filter(entry -> entry.getValue() != null && !entry.getValue().isEmpty())
+                .map(entry -> {
+                    List<String> groupValues = entry.getValue().stream()
                             .map(value -> StringUtils.isBlank(value) ? "NoSymbol" : value) // replace empty strings in list with NoSymbol
                             .collect(Collectors.toList());
-                    return String.format("\t\tsymbols[Group%d] = [ %s ]", group, StringUtils.join(groupValues, ",\t"));
+                    return String.format("\t\tsymbols[Group%d] = [ %s ]", entry.getKey(), StringUtils.join(groupValues, ",\t"));
                 }).collect(Collectors.toList());
         pw.print(StringUtils.join(symbols, ",\n"));
-        pw.println("\n\t};");
     }
 }

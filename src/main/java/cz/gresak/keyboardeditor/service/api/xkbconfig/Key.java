@@ -5,11 +5,11 @@ import java.util.Map;
 
 public final class Key {
     private final Map<Integer, List<String>> symbolGroups;
-    private final String type;
+    private final Map<Integer, String> types;
 
-    public Key(Map<Integer, List<String>> symbolGroups, String type) {
+    public Key(Map<Integer, List<String>> symbolGroups, Map<Integer, String> types) {
         this.symbolGroups = symbolGroups;
-        this.type = type;
+        this.types = types;
     }
 
     public Map<Integer, List<String>> getSymbolGroups() {
@@ -17,7 +17,7 @@ public final class Key {
     }
 
 
-    public String getType() {
-        return type;
+    public Map<Integer, String> getTypes() {
+        return types;
     }
 }

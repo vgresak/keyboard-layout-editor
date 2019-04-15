@@ -15,8 +15,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="View">
                 <Menu mnemonicParsing="false" text="Group…">
-                    <RadioMenuItem mnemonicParsing="false" onAction="#groupChanged" selected="true"
-                                   text="Group 1" userData="1">
+                    <RadioMenuItem mnemonicParsing="false" onAction="#groupChanged" text="Group 1" userData="1">
                         <toggleGroup>
                             <ToggleGroup fx:id="keyboardGroupGroup"/>
                         </toggleGroup>

@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -108,16 +109,12 @@ public class CurrentConfigLoaderImpl implements CurrentConfigLoader {
 
         Pattern symbolsGroupPattern = Pattern.compile("\\[\\s*(.*[^\\W])\\s*]");
         Pattern groupKeysymPattern = Pattern.compile("(\\[[Gg]roup(\\d+)])?.*?\\[(.*?)]");
-        Pattern keyTypePattern = Pattern.compile("type\\s*=\\s*\"(.*?)\"");
         while (keyMatcher.find()) {
             String keycode = keyMatcher.group(1);
             String bracesBody = getBracesBody(symbols, keyMatcher.end());
             Matcher symbolsGroupMatcher = symbolsGroupPattern.matcher(bracesBody);
 
             Map<Integer, List<String>> groupsOfKeysyms = new HashMap<>();
-            String type = getFirstGroupIfMatches(bracesBody, keyTypePattern);
-            Key key = new Key(groupsOfKeysyms, type);
-            result.putKey(keycode, key);
             while (symbolsGroupMatcher.find()) {
                 String symbolsGroup = symbolsGroupMatcher.group();
                 Matcher groupKeysymMatcher = groupKeysymPattern.matcher(symbolsGroup);
@@ -129,7 +126,28 @@ public class CurrentConfigLoaderImpl implements CurrentConfigLoader {
                     groupsOfKeysyms.put(group, keysyms);
                 }
             }
+            Map<Integer, String> types = getTypes(bracesBody, groupsOfKeysyms.keySet());
+            Key key = new Key(groupsOfKeysyms, types);
+            result.putKey(keycode, key);
         }
+    }
+
+    private Map<Integer, String> getTypes(String bracesBody, Set<Integer> groups) {
+        Pattern globalTypePattern = Pattern.compile("type\\s*=\\s*\"(.*?)\"");
+        Pattern groupTypePattern = Pattern.compile("type\\[[Gg]roup(\\d+)]\\s*=\\s*\"(.*?)\"");
+        String globalType = getFirstGroupIfMatches(bracesBody, globalTypePattern);
+        Map<Integer, String> result = new HashMap<>();
+        if (globalType != null) {
+            groups.forEach(group -> result.put(group, globalType));
+        } else {
+            // types might be defined for each group separately
+            Matcher groupTypeMatcher = groupTypePattern.matcher(bracesBody);
+            while (groupTypeMatcher.find()) {
+                int group = Integer.parseInt(groupTypeMatcher.group(1));
+                result.put(group, groupTypeMatcher.group(2));
+            }
+        }
+        return result;
     }
 
     private void setGroupNames(Config result, String symbols) {

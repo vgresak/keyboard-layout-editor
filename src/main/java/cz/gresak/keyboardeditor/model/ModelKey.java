@@ -8,6 +8,7 @@ import java.util.Map;
 public class ModelKey {
     private String keycode;
     private Map<Integer, List<String>> values;
+    private Map<Integer, String> types;
     private String type;
     private double marginLeft;
     private double width = 1;
@@ -39,6 +40,30 @@ public class ModelKey {
             values.put(group, new ArrayList<>());
         }
         return values.get(group);
+    }
+
+    public Map<Integer, String> getTypes() {
+        return types;
+    }
+
+    public ModelKey setTypes(Map<Integer, String> types) {
+        this.types = types;
+        return this;
+    }
+
+    public String getType(int group) {
+        if (types == null) {
+            types = new HashMap<>();
+        }
+        return types.get(group);
+    }
+
+    public ModelKey setType(int group, String type) {
+        if (types == null) {
+            types = new HashMap<>();
+        }
+        this.types.put(group, type);
+        return this;
     }
 
     public String getType() {

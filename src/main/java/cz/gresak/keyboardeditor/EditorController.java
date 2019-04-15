@@ -108,6 +108,7 @@ public class EditorController implements Initializable {
         initLevelCombo();
         initTypesCombo();
         initSpecialCombo();
+        keyboardGroupGroup.getToggles().get(groupState.getGroup() - 1).setSelected(true);
     }
 
     private void loadKeys() {
@@ -261,10 +262,11 @@ public class EditorController implements Initializable {
         txtValue.setText(value);
         lblKeycode.setText(keycode);
         setEditationDisabled(false);
-        if (StringUtils.isBlank(key.getType())) {
+        String keyType = key.getType(group);
+        if (StringUtils.isBlank(keyType)) {
             comboType.getSelectionModel().select(TYPE_NONE);
         } else {
-            comboType.getSelectionModel().select(key.getType());
+            comboType.getSelectionModel().select(keyType);
         }
     }
 
@@ -378,6 +380,7 @@ public class EditorController implements Initializable {
     public void groupChanged() {
         int selectedGroup = Integer.parseInt((String) keyboardGroupGroup.getSelectedToggle().getUserData());
         groupState.setGroup(selectedGroup);
+        unselectKey();
     }
 
     public void updateType() {
@@ -385,12 +388,20 @@ public class EditorController implements Initializable {
             return;
         }
         String selectedItem = comboType.getSelectionModel().getSelectedItem();
-        selectedKey.getKey().setType(selectedItem.equals(TYPE_NONE) ? null : selectedItem);
+        String type = selectedItem.equals(TYPE_NONE) ? null : selectedItem;
+        selectedKey.getKey().setType(groupState.getGroup(), type);
     }
 
     public void loadCurrentLayout() {
         config = currentConfigLoader.getCurrentConfig();
         updateModel();
+        unselectKey();
+    }
+
+    private void unselectKey() {
+        if (selectedKey != null) {
+            selectedKey.unselect();
+        }
         selectedKey = null;
         disableEditation();
     }
