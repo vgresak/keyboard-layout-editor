@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" styleClass="key"
+         type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/8">
+    <Text id="topLeftChar" fx:id="topLeftChar" layoutX="6.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0">
+    </Text>
+    <Text id="bottomLeftChar" fx:id="bottomLeftChar" layoutX="6.0" layoutY="40.0" strokeType="OUTSIDE"
+          strokeWidth="0.0">
+    </Text>
+    <Text id="topRightChar" fx:id="topRightChar" layoutX="30.0" layoutY="16.0" strokeType="OUTSIDE"
+          strokeWidth="0.0" textAlignment="RIGHT">
+    </Text>
+    <Text id="bottomRightChar" fx:id="bottomRightChar" layoutX="30.0" layoutY="40.0" strokeType="OUTSIDE"
+          strokeWidth="0.0" textAlignment="RIGHT">
+    </Text>
+</fx:root>

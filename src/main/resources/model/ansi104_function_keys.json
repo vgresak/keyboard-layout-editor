@@ -1,0 +1,269 @@
+{
+  "lines": [
+    {
+      "keys": [
+        {
+          "keycode": "<ESC>"
+        },
+        {
+          "keycode": "<FK01>",
+          "marginLeft": 1
+        },
+        {
+          "keycode": "<FK02>"
+        },
+        {
+          "keycode": "<FK03>"
+        },
+        {
+          "keycode": "<FK04>"
+        },
+        {
+          "keycode": "<FK05>",
+          "marginLeft": 0.5
+        },
+        {
+          "keycode": "<FK06>"
+        },
+        {
+          "keycode": "<FK07>"
+        },
+        {
+          "keycode": "<FK08>"
+        },
+        {
+          "keycode": "<FK09>",
+          "marginLeft": 0.5
+        },
+        {
+          "keycode": "<FK10>"
+        },
+        {
+          "keycode": "<FK11>"
+        },
+        {
+          "keycode": "<FK12>"
+        }
+      ]
+    },
+    {
+      "marginTop": 0.5,
+      "keys": [
+        {
+          "keycode": "<TLDE>"
+        },
+        {
+          "keycode": "<AE01>"
+        },
+        {
+          "keycode": "<AE02>"
+        },
+        {
+          "keycode": "<AE03>"
+        },
+        {
+          "keycode": "<AE04>"
+        },
+        {
+          "keycode": "<AE05>"
+        },
+        {
+          "keycode": "<AE06>"
+        },
+        {
+          "keycode": "<AE07>"
+        },
+        {
+          "keycode": "<AE08>"
+        },
+        {
+          "keycode": "<AE09>"
+        },
+        {
+          "keycode": "<AE10>"
+        },
+        {
+          "keycode": "<AE11>"
+        },
+        {
+          "keycode": "<AE12>"
+        },
+        {
+          "keycode": "<BKSP>",
+          "width": 2
+        }
+      ]
+    },
+    {
+      "keys": [
+        {
+          "keycode": "<TAB>",
+          "width": 1.5
+        },
+        {
+          "keycode": "<AD01>"
+        },
+        {
+          "keycode": "<AD02>"
+        },
+        {
+          "keycode": "<AD03>"
+        },
+        {
+          "keycode": "<AD04>"
+        },
+        {
+          "keycode": "<AD05>"
+        },
+        {
+          "keycode": "<AD06>"
+        },
+        {
+          "keycode": "<AD07>"
+        },
+        {
+          "keycode": "<AD08>"
+        },
+        {
+          "keycode": "<AD09>"
+        },
+        {
+          "keycode": "<AD10>"
+        },
+        {
+          "keycode": "<AD11>"
+        },
+        {
+          "keycode": "<AD12>"
+        },
+        {
+          "keycode": "<BKSL>",
+          "width": 1.5
+        }
+      ]
+    },
+    {
+      "keys": [
+        {
+          "keycode": "<CAPS>",
+          "width": 1.75
+        },
+        {
+          "keycode": "<AC01>"
+        },
+        {
+          "keycode": "<AC02>"
+        },
+        {
+          "keycode": "<AC03>"
+        },
+        {
+          "keycode": "<AC04>"
+        },
+        {
+          "keycode": "<AC05>"
+        },
+        {
+          "keycode": "<AC06>"
+        },
+        {
+          "keycode": "<AC07>"
+        },
+        {
+          "keycode": "<AC08>"
+        },
+        {
+          "keycode": "<AC09>"
+        },
+        {
+          "keycode": "<AC10>"
+        },
+        {
+          "keycode": "<AC11>"
+        },
+        {
+          "keycode": "<RTRN>",
+          "width": 2.25
+        }
+      ]
+    },
+    {
+      "keys": [
+        {
+          "keycode": "<LFSH>",
+          "width": 2.25
+        },
+        {
+          "keycode": "<AB01>"
+        },
+        {
+          "keycode": "<AB02>"
+        },
+        {
+          "keycode": "<AB03>"
+        },
+        {
+          "keycode": "<AB04>"
+        },
+        {
+          "keycode": "<AB05>"
+        },
+        {
+          "keycode": "<AB06>"
+        },
+        {
+          "keycode": "<AB07>"
+        },
+        {
+          "keycode": "<AB08>"
+        },
+        {
+          "keycode": "<AB09>"
+        },
+        {
+          "keycode": "<AB10>"
+        },
+        {
+          "keycode": "<RTSH>",
+          "width": 2.75
+        }
+      ]
+    },
+    {
+      "keys": [
+        {
+          "keycode": "<LCTL>",
+          "width": 1.25
+        },
+        {
+          "keycode": "<LWIN>",
+          "width": 1.25
+        },
+        {
+          "keycode": "<LALT>",
+          "width": 1.25
+        },
+        {
+          "keycode": "<SPCE>",
+          "width": 6.25
+        },
+        {
+          "keycode": "<RALT>",
+          "width": 1.25
+        },
+        {
+          "keycode": "<RWIN>",
+          "width": 1.25
+        },
+        {
+          "keycode": "<COMP>",
+          "width": 1.25
+        },
+        {
+          "keycode": "<RCTL>",
+          "width": 1.25
+        }
+      ]
+    }
+  ]
+}
