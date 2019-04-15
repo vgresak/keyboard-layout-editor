@@ -15,8 +15,8 @@
             </Menu>
             <Menu mnemonicParsing="false" text="View">
                 <Menu mnemonicParsing="false" text="Group…">
-                    <RadioMenuItem mnemonicParsing="false" onAction="#groupChanged" selected="true" text="Group 1"
-                                   userData="1">
+                    <RadioMenuItem mnemonicParsing="false" onAction="#groupChanged" selected="true"
+                                   text="Group 1" userData="1">
                         <toggleGroup>
                             <ToggleGroup fx:id="keyboardGroupGroup"/>
                         </toggleGroup>
@@ -53,10 +53,12 @@
                             <ToggleGroup fx:id="keyboardModelGroup"/>
                         </toggleGroup>
                     </RadioMenuItem>
-                    <RadioMenuItem mnemonicParsing="false" onAction="#selectKeyboardModel" text="Full featured"
-                                   toggleGroup="$keyboardModelGroup" userData="FULL_FEATURED"/>
-                    <RadioMenuItem mnemonicParsing="false" onAction="#selectKeyboardModel" text="Function keys"
-                                   toggleGroup="$keyboardModelGroup" userData="FN_KEYS"/>
+                    <RadioMenuItem mnemonicParsing="false" onAction="#selectKeyboardModel"
+                                   text="Full featured" toggleGroup="$keyboardModelGroup"
+                                   userData="FULL_FEATURED"/>
+                    <RadioMenuItem mnemonicParsing="false" onAction="#selectKeyboardModel"
+                                   text="Function keys" toggleGroup="$keyboardModelGroup"
+                                   userData="FN_KEYS"/>
                     <RadioMenuItem mnemonicParsing="false" onAction="#selectKeyboardModel"
                                    text="Function + nav keys" toggleGroup="$keyboardModelGroup"
                                    userData="FN_AND_NAV_KEYS"/>
@@ -66,7 +68,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#chooseDefaultFont" text="Font…"/>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
-                <MenuItem mnemonicParsing="false" text="About" onAction="#showAboutDialog"/>
+                <MenuItem mnemonicParsing="false" onAction="#showAboutDialog" text="About"/>
             </Menu>
         </MenuBar>
     </top>
@@ -103,36 +105,45 @@
                             <Insets left="10.0"/>
                         </FlowPane.margin>
                     </Button>
-                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Special">
+                    <HBox alignment="CENTER_LEFT" prefHeight="60.0">
                         <FlowPane.margin>
                             <Insets left="10.0"/>
                         </FlowPane.margin>
-                    </Text>
-                    <ComboBox prefWidth="150.0" fx:id="comboSpecial" onAction="#selectSpecialKeysym" disable="true">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Special"/>
+                        <ComboBox fx:id="comboSpecial" disable="true" onAction="#selectSpecialKeysym"
+                                  prefWidth="150.0">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                        </ComboBox>
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" prefHeight="60.0">
                         <FlowPane.margin>
                             <Insets left="10.0"/>
                         </FlowPane.margin>
-                    </ComboBox>
-                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
+                            <HBox.margin>
+                                <Insets/>
+                            </HBox.margin>
+                        </Text>
+                        <ComboBox fx:id="comboType" disable="true" editable="true" onAction="#updateType"
+                                  prefWidth="150.0">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                        </ComboBox>
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT" prefHeight="60.0">
                         <FlowPane.margin>
                             <Insets left="10.0"/>
                         </FlowPane.margin>
-                    </Text>
-                    <ComboBox fx:id="comboType" disable="true" editable="true" onAction="#updateType" prefWidth="150.0">
-                        <FlowPane.margin>
-                            <Insets left="10.0"/>
-                        </FlowPane.margin>
-                    </ComboBox>
-                    <Text text="Keycode:">
-                        <FlowPane.margin>
-                            <Insets left="10.0"/>
-                        </FlowPane.margin>
-                    </Text>
-                    <Text fx:id="lblKeycode" text="none">
-                        <FlowPane.margin>
-                            <Insets left="5.0"/>
-                        </FlowPane.margin>
-                    </Text>
+                        <Text text="Keycode:"/>
+                        <Text fx:id="lblKeycode" text="none">
+                            <HBox.margin>
+                                <Insets left="5.0"/>
+                            </HBox.margin>
+                        </Text>
+                    </HBox>
                 </FlowPane>
             </bottom>
             <center>
