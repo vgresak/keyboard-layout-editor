@@ -2,6 +2,8 @@
 Keyboard layout editor is a JavaFX application made to help create custom keyboard layouts. 
 The application works with the <code>X&nbsp;Keyboard&nbsp;Extension&nbsp;(XKB)</code> (often found in the Linux, OpenSolaris, BSD). 
 
+![Keyboard layout editor](https://raw.githubusercontent.com/vgresak/keyboard-layout-editor/master/editor.png)
+
 ## Requirements
 As this is a JavaFX application, you need both Java 8 and JavaFX to build and run the editor. If you are using APT, you can use <code>sudo apt-get install openjdk-8-jdk openjfx</code>.
 
