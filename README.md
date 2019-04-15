@@ -25,6 +25,6 @@ You can run the application using the <code>java -jar keyboard-layout-editor-all
 * It is possible to set key type (xkb_type).
 * Generated characters are defined using Unicode (UXXXX and 0x100XXXX formats are supported), character map or using [keysym](https://www.cl.cam.ac.uk/~mgk25/ucs/keysymdef.h).
 * There are a lot of characters in Unicode and this application aims to be able to display them all correctly. Choose which font you want to be used in the virtual keyboard. When font does not support displayed character, application tries to detect it and select an alternative.
-* You can choose how the model of the keyboard is displayed. Select desired appearance of the keyboard or create and use your own.
+* You can choose how the model of the keyboard is displayed. Select desired appearance of the keyboard or create and use your own. Keyboard model is described using simple JSON file – [see an example of a 104-key ANSI keyboard](https://github.com/vgresak/keyboard-layout-editor/blob/master/src/main/resources/model/ansi104.json).
 * Editor is not dependent on any specific GUI environment. It does not matter whether you use KDE, GNOME, Xfce or anything else.
 * Application can be used on any platform that supports Java 8 and JavaFX. If you are not using XKB, you can still work with the application and generate a symbol file (although you will not be able to use the file itself to change your keyboard mapping).
