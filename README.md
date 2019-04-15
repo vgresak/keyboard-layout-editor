@@ -21,6 +21,7 @@ You can run the application using the <code>java -jar keyboard-layout-editor-all
 * Current keyboard layout is automatically imported from the X Server.
 * Symbol file can be exported and used by XKB to change the keyboard mapping.
 * There is a support for up to 4 characters (levels) per key.
+* Up to 8 layout groups are supported allowing definition of multiple keyboard layouts among which you can switch.
 * It is possible to set key type (xkb_type).
 * Generated characters are defined using Unicode (UXXXX and 0x100XXXX formats are supported), character map or using [keysym](https://www.cl.cam.ac.uk/~mgk25/ucs/keysymdef.h).
 * There are a lot of characters in Unicode and this application aims to be able to display them all correctly. Choose which font you want to be used in the virtual keyboard. When font does not support displayed character, application tries to detect it and select an alternative.
