@@ -5,7 +5,10 @@ The application works with the <code>X&nbsp;Keyboard&nbsp;Extension&nbsp;(XKB)</
 ![Keyboard layout editor](https://raw.githubusercontent.com/vgresak/keyboard-layout-editor/master/editor.png)
 
 ## Requirements
-As this is a JavaFX application, you need both Java 8 and JavaFX to build and run the editor. If you are using APT, you can use <code>sudo apt-get install openjdk-8-jdk openjfx</code>.
+As this is a JavaFX application, you need both Java 8 and JavaFX to build and run the editor.
+
+### Linux
+You can use your package manager to obtain Java 8 JDK: <code>sudo apt-get install openjdk-8-jdk</code>. Next install JavaFX. You can get OpenJFX (open source JavaFX implementation) build for Java 8 for example at [www.chriswhocodes.com](https://www.chriswhocodes.com/downloads/openjfx-8u60-sdk-overlay-linux-amd64.zip). Don't forget to include it in your JDK directory like this: <code>sudo unzip openjfx-8u60-sdk-overlay-linux-amd64.zip -d /usr/lib/jvm/java-8-openjdk-amd64/</code>.
 
 Optionally you can install [xkblayout-state](https://github.com/nonpop/xkblayout-state) on your system. If you won't, the editor will run just fine but the currently selected group will not be automatically displayed by the editor (you can still choose desired group via the menu in the editor).
 
