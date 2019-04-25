@@ -15,13 +15,23 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.Optional;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
 public class FontProviderImpl implements FontProvider {
     private static final Deque<Font> cache = new ArrayDeque<>();
+    private static final Preferences preferences = Preferences.userRoot().node(FontProviderImpl.class.getName());
     private static FontProvider instance;
-    private final List<DefaultFontChangedListener> listeners = new ArrayList<>();
-    private final FontFactory fontFactory = GraphicsPipeline.getPipeline().getFontFactory();
-    private Font defaultFont = Font.getDefault();
+    private final List<DefaultFontChangedListener> listeners;
+    private final FontFactory fontFactory;
+    private Font defaultFont;
+
+    public FontProviderImpl() {
+        listeners = new ArrayList<>();
+        fontFactory = GraphicsPipeline.getPipeline().getFontFactory();
+        String fontName = preferences.get("font", Font.getDefault().getName());
+        defaultFont = new Font(fontName, Font.getDefault().getSize());
+    }
 
     public static FontProvider getInstance() {
         if (instance == null) {
@@ -96,7 +106,12 @@ public class FontProviderImpl implements FontProvider {
     public void setDefaultFont(Font defaultFont) {
         this.defaultFont = defaultFont;
         listeners.forEach(listener -> listener.action(this.defaultFont));
-
+        preferences.put("font", defaultFont.getName());
+        try {
+            preferences.flush();
+        } catch (BackingStoreException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
