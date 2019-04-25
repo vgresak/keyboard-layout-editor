@@ -70,6 +70,8 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
                 <MenuItem mnemonicParsing="false" onAction="#showAboutDialog" text="About"/>
+                <MenuItem mnemonicParsing="false" onAction="#showCommandHint" text="Show command hint" disable="true"
+                          fx:id="menuShowCommandHint"/>
             </Menu>
         </MenuBar>
     </top>

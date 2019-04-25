@@ -28,6 +28,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -91,6 +92,8 @@ public class EditorController implements Initializable {
     private CheckMenuItem checkLevel4;
     @FXML
     private CheckMenuItem checkShowNoSymbol;
+    @FXML
+    private MenuItem menuShowCommandHint;
 
     private Config config;
     private KeyboardModel model;
@@ -98,6 +101,7 @@ public class EditorController implements Initializable {
     private Key selectedKey;
     private CharacterMap characterMap = new CharacterMap();
     private boolean handleComboSpecialInput;
+    private String exportCommandHint;
 
     private KeyboardModelUpdater modelUpdater = lookup(KeyboardModelUpdater.class);
     private GroupState groupState = lookup(GroupState.class);
@@ -339,21 +343,16 @@ public class EditorController implements Initializable {
     }
 
     private void showExportFinishedAlert(File file) {
+        String newSymbolsFileName = file.getName();
+        exportCommandHint = String.format("sudo cp \"%s\" \"%s%s\" -i\nsetxkbmap -layout \"%s\"", file.getAbsolutePath(), XKB_SYMBOLS_DIRECTORY, newSymbolsFileName, newSymbolsFileName);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Keyboard layout export complete");
         alert.setHeaderText("Keyboard layout export finished successfully");
-        VBox content = new VBox();
-        content.setSpacing(10);
-        content.getChildren().add(new Text("To use exported layout immediately, run following commands:"));
-        TextArea commands = new TextArea();
-        commands.setEditable(false);
-        String newSymbolsFileName = file.getName();
-        String commandsText = String.format("sudo cp \"%s\" \"%s%s\" -i\nsetxkbmap -layout \"%s\"", file.getAbsolutePath(), XKB_SYMBOLS_DIRECTORY, newSymbolsFileName, newSymbolsFileName);
-        commands.setText(commandsText);
-        content.getChildren().add(commands);
+        VBox content = getCommandHintContent();
         alert.getDialogPane().setContent(content);
-
         alert.showAndWait();
+
+        menuShowCommandHint.setDisable(false);
     }
 
     private void showExportFailedAlert(File file, LayoutExportResult exportResult) {
@@ -464,5 +463,25 @@ public class EditorController implements Initializable {
 
     public void setShowNoSymbol() {
         ServiceLoader.lookup(KeysymMapper.class).showNoSymbol(checkShowNoSymbol.isSelected());
+    }
+
+    public void showCommandHint() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Command hint");
+        alert.setHeaderText("Previously exported keyboard layout command hint");
+        VBox content = getCommandHintContent();
+        alert.getDialogPane().setContent(content);
+        alert.showAndWait();
+    }
+
+    private VBox getCommandHintContent() {
+        VBox content = new VBox();
+        content.setSpacing(10);
+        content.getChildren().add(new Text("To use exported layout immediately, run following commands:"));
+        TextArea commands = new TextArea();
+        commands.setEditable(false);
+        commands.setText(exportCommandHint);
+        content.getChildren().add(commands);
+        return content;
     }
 }
