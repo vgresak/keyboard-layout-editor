@@ -1,6 +1,7 @@
 package cz.gresak.keyboardeditor.component;
 
-import cz.gresak.keyboardeditor.service.impl.FontProviderImpl;
+import cz.gresak.keyboardeditor.service.ServiceLoader;
+import cz.gresak.keyboardeditor.service.api.FontProvider;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
@@ -61,7 +62,7 @@ public class FontPicker extends Dialog<Font> {
         content.add(sampleText, 0, 3);
         GridPane.setColumnSpan(sampleText, 2);
 
-        Font defaultFont = FontProviderImpl.getInstance().getDefaultFont();
+        Font defaultFont = ServiceLoader.lookup(FontProvider.class).getDefaultFont();
         fontFamilySelection.select(defaultFont.getFamily());
         fontCombo.setItems(FXCollections.observableList(Font.getFontNames(fontFamilySelection.getSelectedItem())));
         fontCombo.getSelectionModel().select(defaultFont.getName());

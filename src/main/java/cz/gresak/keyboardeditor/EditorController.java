@@ -8,9 +8,11 @@ import cz.gresak.keyboardeditor.component.WebsiteLink;
 import cz.gresak.keyboardeditor.model.KeyboardModel;
 import cz.gresak.keyboardeditor.model.Line;
 import cz.gresak.keyboardeditor.model.ModelKey;
+import cz.gresak.keyboardeditor.service.ServiceLoader;
 import cz.gresak.keyboardeditor.service.api.FontProvider;
 import cz.gresak.keyboardeditor.service.api.GroupState;
 import cz.gresak.keyboardeditor.service.api.KeyboardModelLoader;
+import cz.gresak.keyboardeditor.service.api.KeysymMapper;
 import cz.gresak.keyboardeditor.service.api.LayoutExportResult;
 import cz.gresak.keyboardeditor.service.api.LayoutExporter;
 import cz.gresak.keyboardeditor.service.api.PredefinedKeyboardModel;
@@ -86,6 +88,8 @@ public class EditorController implements Initializable {
     private CheckMenuItem checkLevel3;
     @FXML
     private CheckMenuItem checkLevel4;
+    @FXML
+    private CheckMenuItem checkShowNoSymbol;
 
     private Config config;
     private KeyboardModel model;
@@ -437,5 +441,9 @@ public class EditorController implements Initializable {
         content.getChildren().add(new FlowPane(new Text("All software used is licensed under "), new WebsiteLink("Apache License 2.0", "http://www.apache.org/licenses/LICENSE-2.0")));
         alert.getDialogPane().setContent(content);
         alert.showAndWait();
+    }
+
+    public void setShowNoSymbol() {
+        ServiceLoader.lookup(KeysymMapper.class).showNoSymbol(checkShowNoSymbol.isSelected());
     }
 }

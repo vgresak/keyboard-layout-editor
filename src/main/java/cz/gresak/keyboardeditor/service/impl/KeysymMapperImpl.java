@@ -1,12 +1,15 @@
 package cz.gresak.keyboardeditor.service.impl;
 
 import cz.gresak.keyboardeditor.service.api.KeysymMapper;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,9 +17,14 @@ import java.util.regex.Pattern;
 public class KeysymMapperImpl implements KeysymMapper {
 
     private static final Pattern UNICODE_VALUE_PATTERN = Pattern.compile("(U([0-9a-fA-F]{4}))|(0x100([0-9a-fA-F]{4}))");
+    private boolean showNoSymbol;
+    private List<ShowNoSymbolChangedListener> listeners = new ArrayList<>();
 
     @Override
     public String getSymbol(String value) {
+        if (StringUtils.isBlank(value) || "NoSymbol".equals(value)) {
+            return showNoSymbol ? "NoSymbol" : "";
+        }
         if (isUnicode(value)) {
             return unicodeToString(value);
         }
@@ -25,6 +33,17 @@ public class KeysymMapperImpl implements KeysymMapper {
             return symbol;
         }
         return value;
+    }
+
+    @Override
+    public void showNoSymbol(boolean showNoSymbol) {
+        this.showNoSymbol = showNoSymbol;
+        listeners.forEach(listener -> listener.onChanged(showNoSymbol));
+    }
+
+    @Override
+    public void addShowNoSymbolChangedListener(ShowNoSymbolChangedListener listener) {
+        listeners.add(listener);
     }
 
     private boolean isUnicode(String value) {

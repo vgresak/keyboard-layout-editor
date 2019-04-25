@@ -4,12 +4,10 @@ import com.sun.javafx.tk.FontLoader;
 import com.sun.javafx.tk.FontMetrics;
 import com.sun.javafx.tk.Toolkit;
 import cz.gresak.keyboardeditor.model.ModelKey;
+import cz.gresak.keyboardeditor.service.ServiceLoader;
 import cz.gresak.keyboardeditor.service.api.FontProvider;
 import cz.gresak.keyboardeditor.service.api.GroupState;
 import cz.gresak.keyboardeditor.service.api.KeysymMapper;
-import cz.gresak.keyboardeditor.service.impl.FontProviderImpl;
-import cz.gresak.keyboardeditor.service.impl.GroupStateImpl;
-import cz.gresak.keyboardeditor.service.impl.KeysymMapperImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -42,9 +40,9 @@ public class Key extends Pane {
     private Text bottomRightChar;
     private KeyLayout keyLayout;
     private KeyConfig keyConfig;
-    private FontProvider fontProvider = FontProviderImpl.getInstance();
-    private GroupState groupState = GroupStateImpl.getInstance();
-    private KeysymMapper mapper = new KeysymMapperImpl();
+    private FontProvider fontProvider = ServiceLoader.lookup(FontProvider.class);
+    private GroupState groupState = ServiceLoader.lookup(GroupState.class);
+    private KeysymMapper mapper = ServiceLoader.lookup(KeysymMapper.class);
 
     public Key(ModelKey key) {
         this.key = key;
@@ -64,6 +62,7 @@ public class Key extends Pane {
         heightProperty().addListener((observable, oldValue, newValue) -> updateSize());
         fontProvider.addDefaultFontChangedListener(newFont -> setFontFamily());
         groupState.addListener(newGroup -> updateContent());
+        mapper.addShowNoSymbolChangedListener(newValue -> updateContent());
     }
 
     public void select() {
@@ -258,9 +257,11 @@ public class Key extends Pane {
         List<String> keysymsInGroup = key.getGroup(group);
 
         while (keysymsInGroup.size() <= levelIndex) {
-            keysymsInGroup.add("");
+            keysymsInGroup.add("NoSymbol");
         }
-
+        if (StringUtils.isBlank(text)) {
+            text = "NoSymbol";
+        }
         keysymsInGroup.set(levelIndex, text);
         updateContent();
     }

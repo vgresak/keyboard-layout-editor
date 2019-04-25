@@ -65,6 +65,8 @@
                               text="Load custom model…"/>
                 </Menu>
                 <MenuItem mnemonicParsing="false" onAction="#chooseDefaultFont" text="Font…"/>
+                <CheckMenuItem mnemonicParsing="false" fx:id="checkShowNoSymbol" onAction="#setShowNoSymbol"
+                               text="Show NoSymbol"/>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
                 <MenuItem mnemonicParsing="false" onAction="#showAboutDialog" text="About"/>
