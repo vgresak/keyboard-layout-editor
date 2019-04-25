@@ -35,7 +35,7 @@ public class GroupStateImpl implements GroupState {
     private void loadCurrentGroup() {
         Optional<String> commandResult = commandExecutor.execute("xkblayout-state print %c");
         try {
-            group = Integer.parseInt(commandResult.orElse("0")) + 1; // xkblayout-state returns values 0-7
+            group = Integer.parseInt(commandResult.orElse("0").trim()) + 1; // xkblayout-state returns values 0-7
         } catch (NumberFormatException e) {
             //xkblayout-state failed to return a number
             group = 1;
