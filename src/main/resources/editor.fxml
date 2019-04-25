@@ -103,6 +103,14 @@
                             <Tooltip text="Value can be unicode character in UXXXX or 0x100XXXX format or keysym."/>
                         </tooltip>
                     </TextField>
+                    <Button fx:id="btnSetValue" disable="true" mnemonicParsing="false" onAction="#setValue" text="Set">
+                        <FlowPane.margin>
+                            <Insets left="10.0"/>
+                        </FlowPane.margin>
+                        <tooltip>
+                            <Tooltip text="You can also use Return when focused on the value text field."/>
+                        </tooltip>
+                    </Button>
                     <Button fx:id="btnCharMap" disable="true" mnemonicParsing="false" onAction="#openCharacterMap"
                             text="Character map">
                         <FlowPane.margin>

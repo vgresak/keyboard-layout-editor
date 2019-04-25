@@ -65,11 +65,12 @@ public class EditorController implements Initializable {
     private static final int outerTopMargin = 20;
     private static final String XKB_SYMBOLS_DIRECTORY = "/usr/share/X11/xkb/symbols/";
     private static final String TYPE_NONE = "None";
-
     @FXML
     private Pane editorPane;
     @FXML
     private TextField txtValue;
+    @FXML
+    private Button btnSetValue;
     @FXML
     private Button btnCharMap;
     @FXML
@@ -303,6 +304,7 @@ public class EditorController implements Initializable {
         btnCharMap.setDisable(b);
         comboType.setDisable(b);
         comboSpecial.setDisable(b);
+        btnSetValue.setDisable(b);
     }
 
     private void disableEditation() {
@@ -492,5 +494,9 @@ public class EditorController implements Initializable {
         ExportSettingsDialog dialog = new ExportSettingsDialog(exportConfig);
         Optional<ExportConfig> newExportConfig = dialog.showAndWait();
         newExportConfig.ifPresent(config -> exportConfig = config);
+    }
+
+    public void setValue() {
+        setValue(txtValue.getText());
     }
 }
