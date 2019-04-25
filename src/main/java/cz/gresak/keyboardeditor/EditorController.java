@@ -156,13 +156,13 @@ public class EditorController implements Initializable {
 
     private void initSpecialCombo() {
         ObservableList<String> specialKeysyms = FXCollections.observableArrayList(
-                "Shift_L", "Shift_R", "Control_L", "Control_R", "Caps_Lock", "Shift_Lock",
+                "NoSymbol", "Shift_L", "Shift_R", "Control_L", "Control_R", "Caps_Lock", "Shift_Lock",
                 "Meta_L", "Meta_R", "Alt_L", "Alt_R", "Super_L", "Super_R", "Hyper_L", "Hyper_R",
                 "ISO_Next_Group", "ISO_Prev_Group", "ISO_First_Group", "ISO_Last_Group", "ISO_Level3_Shift",
                 "ISO_Lock", "ISO_Level2_Latch", "ISO_Level3_Latch", "ISO_Level3_Lock", "ISO_Level5_Shift", "ISO_Level5_Latch",
                 "ISO_Level5_Lock", "ISO_Group_Shift", "ISO_Group_Latch", "ISO_Group_Lock",
                 "ISO_Next_Group_Lock", "ISO_Prev_Group_Lock", "ISO_First_Group_Lock", "ISO_Last_Group_Lock",
-                "NoSymbol", "BackSpace", "Tab", "ISO_Left_Tab", "Linefeed", "Return", "Clear", "Pause",
+                "BackSpace", "Tab", "ISO_Left_Tab", "Linefeed", "Return", "Clear", "Pause",
                 "Num_Lock", "Scroll_Lock", "Sys_Req", "Escape", "Delete", "Multi_key",
                 "Home", "End", "Left", "Right", "Up", "Down", "Page_Up", "Page_Down",
                 "Begin", "Select", "Print", "Execute", "Insert", "Undo", "Redo",

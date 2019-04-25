@@ -22,9 +22,6 @@ public class KeysymMapperImpl implements KeysymMapper {
 
     @Override
     public String getSymbol(String value) {
-        if (StringUtils.isBlank(value) || "NoSymbol".equals(value)) {
-            return showNoSymbol ? "NoSymbol" : "";
-        }
         if (isUnicode(value)) {
             return unicodeToString(value);
         }
@@ -32,7 +29,14 @@ public class KeysymMapperImpl implements KeysymMapper {
         if (symbol != null) {
             return symbol;
         }
+        if (isNoSymbol(value)) {
+            return showNoSymbol ? "NoSymbol" : "";
+        }
         return value;
+    }
+
+    private boolean isNoSymbol(String value) {
+        return StringUtils.isBlank(value) || "NoSymbol".equals(value);
     }
 
     @Override
