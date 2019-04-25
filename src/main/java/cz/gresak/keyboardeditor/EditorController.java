@@ -1,6 +1,7 @@
 package cz.gresak.keyboardeditor;
 
 import cz.gresak.keyboardeditor.component.CharacterMap;
+import cz.gresak.keyboardeditor.component.ExportSettingsDialog;
 import cz.gresak.keyboardeditor.component.FileDialog;
 import cz.gresak.keyboardeditor.component.FontPicker;
 import cz.gresak.keyboardeditor.component.Key;
@@ -9,6 +10,7 @@ import cz.gresak.keyboardeditor.model.KeyboardModel;
 import cz.gresak.keyboardeditor.model.Line;
 import cz.gresak.keyboardeditor.model.ModelKey;
 import cz.gresak.keyboardeditor.service.ServiceLoader;
+import cz.gresak.keyboardeditor.service.api.ExportConfig;
 import cz.gresak.keyboardeditor.service.api.FontProvider;
 import cz.gresak.keyboardeditor.service.api.GroupState;
 import cz.gresak.keyboardeditor.service.api.KeyboardModelLoader;
@@ -102,6 +104,7 @@ public class EditorController implements Initializable {
     private CharacterMap characterMap = new CharacterMap();
     private boolean handleComboSpecialInput;
     private String exportCommandHint;
+    private ExportConfig exportConfig = new ExportConfig();
 
     private KeyboardModelUpdater modelUpdater = lookup(KeyboardModelUpdater.class);
     private GroupState groupState = lookup(GroupState.class);
@@ -333,7 +336,7 @@ public class EditorController implements Initializable {
         Window window = editorPane.getScene().getWindow();
         File file = FileDialog.showSaveDialog(window);
         if (file != null) {
-            LayoutExportResult exportResult = exporter.export(model, file);
+            LayoutExportResult exportResult = exporter.export(model, file, exportConfig);
             if (exportResult.isOk()) {
                 showExportFinishedAlert(file);
             } else {
@@ -483,5 +486,11 @@ public class EditorController implements Initializable {
         commands.setText(exportCommandHint);
         content.getChildren().add(commands);
         return content;
+    }
+
+    public void showExportLayoutSettings() {
+        ExportSettingsDialog dialog = new ExportSettingsDialog(exportConfig);
+        Optional<ExportConfig> newExportConfig = dialog.showAndWait();
+        newExportConfig.ifPresent(config -> exportConfig = config);
     }
 }

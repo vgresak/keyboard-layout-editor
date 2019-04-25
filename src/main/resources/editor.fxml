@@ -10,7 +10,8 @@
         <MenuBar BorderPane.alignment="CENTER">
             <Menu mnemonicParsing="false" text="File">
                 <MenuItem mnemonicParsing="false" onAction="#loadCurrentLayout" text="Load current layout"/>
-                <MenuItem mnemonicParsing="false" onAction="#exportLayout" text="Save…"/>
+                <MenuItem mnemonicParsing="false" onAction="#exportLayout" text="Export…"/>
+                <MenuItem mnemonicParsing="false" onAction="#showExportLayoutSettings" text="Export settings…"/>
                 <MenuItem mnemonicParsing="false" onAction="#close" text="Close"/>
             </Menu>
             <Menu mnemonicParsing="false" text="View">

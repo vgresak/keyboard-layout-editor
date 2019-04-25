@@ -22,21 +22,32 @@ public class KeysymMapperImpl implements KeysymMapper {
 
     @Override
     public String getSymbol(String value) {
+        if (isNoSymbol(value)) {
+            return getNoSymbol();
+        }
         if (isUnicode(value)) {
             return unicodeToString(value);
         }
-        String symbol = KeysymToSymbol.getSymbol(value);
-        if (symbol != null) {
-            return symbol;
-        }
-        if (isNoSymbol(value)) {
-            return showNoSymbol ? "NoSymbol" : "";
-        }
-        return value;
+        return getMappedValue(value);
     }
 
     private boolean isNoSymbol(String value) {
         return StringUtils.isBlank(value) || "NoSymbol".equals(value);
+    }
+
+    private String getNoSymbol() {
+        if (!showNoSymbol) {
+            return "";
+        }
+        return getMappedValue("NoSymbol");
+    }
+
+    private String getMappedValue(String value) {
+        String symbol = KeysymToSymbol.getSymbol(value);
+        if (symbol != null) {
+            return symbol;
+        }
+        return value;
     }
 
     @Override
