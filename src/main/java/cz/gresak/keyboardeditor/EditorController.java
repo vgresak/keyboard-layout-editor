@@ -448,7 +448,7 @@ public class EditorController implements Initializable {
         alert.setHeaderText("About this application");
         VBox content = new VBox();
         content.getChildren().add(new Text("Keyboard layout editor is an application used to help create custom keyboard layouts.\n" +
-                "Application works with X Keyboard Extension (XKB) – it loads current keyboard layout and it is able to export symbols file.\n\n" +
+                "Application works with X Keyboard Extension (XKB) – it loads current keyboard layout using xkbcomp and it is able to export symbols file.\n\n" +
                 "Author: Viktor Grešák\n" +
                 "Created in 2019\n\n" +
                 "Third party software used:"));
