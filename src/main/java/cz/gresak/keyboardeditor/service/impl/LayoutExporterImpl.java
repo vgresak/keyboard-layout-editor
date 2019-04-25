@@ -61,7 +61,7 @@ public class LayoutExporterImpl implements LayoutExporter {
                 .map(entry -> String.format("\t\ttype[group%d]= \"%s\"", entry.getKey(), entry.getValue()))
                 .collect(Collectors.toList());
         pw.print(StringUtils.join(typesDefinition, ",\n"));
-        if (key.getValues() != null && !key.getValues().isEmpty()) {
+        if (key.getValues() != null && !key.getValues().isEmpty() && !typesDefinition.isEmpty()) {
             pw.printf(",\n");
         }
     }
