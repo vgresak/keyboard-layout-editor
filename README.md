@@ -31,3 +31,6 @@ You can run the application using the <code>java -jar keyboard-layout-editor-all
 * You can choose how the model of the keyboard is displayed. Select desired appearance of the keyboard or create and use your own. Keyboard model is described using simple JSON file – [see an example of a 104-key ANSI keyboard](https://github.com/vgresak/keyboard-layout-editor/blob/master/src/main/resources/model/ansi104.json).
 * Editor is not dependent on any specific GUI environment. It does not matter whether you use KDE, GNOME, Xfce or anything else.
 * Application can be used on any platform that supports Java 8 and JavaFX. If you are not using XKB, you can still work with the application and generate a symbol file (although you will not be able to use the file itself to change your keyboard mapping).
+
+## Creating new XKB variants using the editor
+Working with XKB variants is not supported by the editor for now. Exported configuration is <code>xkb_symbols "basic"</code>. However, you can define your variant in different group and set export settings so that you export only current group without type - this way you get only symbols definitions for the current group. You can then use the definition however you like (e.g. define your own custom XKB variant).
