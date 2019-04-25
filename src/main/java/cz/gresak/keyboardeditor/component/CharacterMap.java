@@ -48,6 +48,8 @@ public class CharacterMap extends Dialog<String> {
         dialogPane.setContent(content);
         content.setPrefHeight(400);
         content.setPrefWidth(600);
+        content.setMinHeight(400);
+        content.setMinWidth(600);
         content.setTop(top());
         content.setCenter(center());
         content.setBottom(bottom());

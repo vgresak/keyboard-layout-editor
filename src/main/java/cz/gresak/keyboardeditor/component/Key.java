@@ -147,8 +147,8 @@ public class Key extends Pane {
     }
 
     private void setFontSize(Text text, double fontSize) {
-        Font topLeftFont = text.getFont();
-        text.setFont(new Font(topLeftFont.getName(), fontSize));
+        Font font = text.getFont();
+        text.setFont(new Font(font.getName(), fontSize));
     }
 
 
