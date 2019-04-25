@@ -26,7 +26,8 @@ import java.util.stream.Stream;
 
 public class Key extends Pane {
 
-    private static final int PADDING = 2;
+    private static final int HPADDING = 4;
+    private static final int VPADDING = 2;
     private static final int KEY_COLUMN_SPACE = 6;
     private final ModelKey key;
 
@@ -122,12 +123,12 @@ public class Key extends Pane {
         switch (keyLayout) {
             case SINGLE_LINE:
             case TWO_LINE:
-                widthToFitFont = Math.max(getWidth() - PADDING * 2, 0);
-                heightToFitFont = Math.max(getHeight() / 2 - PADDING * 4, 0);
+                widthToFitFont = Math.max(getWidth() - HPADDING * 2, 0);
+                heightToFitFont = Math.max(getHeight() / 2 - VPADDING * 4, 0);
                 break;
             case FOUR_SECTIONS:
-                widthToFitFont = Math.max(getWidth() / 2 - PADDING * 2, 0);
-                heightToFitFont = Math.max(getHeight() / 2 - PADDING * 4, 0);
+                widthToFitFont = Math.max(getWidth() / 2 - HPADDING * 2 - KEY_COLUMN_SPACE, 0);
+                heightToFitFont = Math.max(getHeight() / 2 - VPADDING * 4 - KEY_COLUMN_SPACE, 0);
                 break;
             default:
                 throw new RuntimeException("Unsupported key layout");
@@ -173,7 +174,7 @@ public class Key extends Pane {
         double bottomLeftWidth = fontLoader.computeStringWidth(bottomLeftChar.getText(), bottomLeftChar.getFont());
         double maxLeftColumnLayoutX = Math.max(topLeftChar.getLayoutX(), bottomLeftChar.getLayoutX());
         double xOffset = Math.max(
-                (getWidth() / 2 - PADDING) + KEY_COLUMN_SPACE, // center of the key
+                (getWidth() / 2 - HPADDING) + KEY_COLUMN_SPACE, // center of the key
                 Math.max(topLeftWidth, bottomLeftWidth) + maxLeftColumnLayoutX + KEY_COLUMN_SPACE); // offset based on left column width
         topRightChar.setLayoutX(xOffset);
         bottomRightChar.setLayoutX(xOffset);
