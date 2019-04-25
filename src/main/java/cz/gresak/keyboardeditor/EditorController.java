@@ -348,7 +348,7 @@ public class EditorController implements Initializable {
         TextArea commands = new TextArea();
         commands.setEditable(false);
         String newSymbolsFileName = file.getName();
-        String commandsText = String.format("sudo mv %s %s%s\nsetxkbmap -layout \"%s\"", file.getAbsolutePath(), XKB_SYMBOLS_DIRECTORY, newSymbolsFileName, newSymbolsFileName);
+        String commandsText = String.format("sudo cp \"%s\" \"%s%s\" -i\nsetxkbmap -layout \"%s\"", file.getAbsolutePath(), XKB_SYMBOLS_DIRECTORY, newSymbolsFileName, newSymbolsFileName);
         commands.setText(commandsText);
         content.getChildren().add(commands);
         alert.getDialogPane().setContent(content);
