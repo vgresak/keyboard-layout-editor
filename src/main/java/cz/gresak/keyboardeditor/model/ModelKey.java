@@ -9,7 +9,6 @@ public class ModelKey {
     private String keycode;
     private Map<Integer, List<String>> values;
     private Map<Integer, String> types;
-    private String type;
     private double marginLeft;
     private double width = 1;
     private double height = 1;
@@ -42,6 +41,14 @@ public class ModelKey {
         return values.get(group);
     }
 
+    public String getValue(int group, int level) {
+        List<String> groupSymbols = getGroup(group);
+        if (level >= 0 && level < groupSymbols.size()) {
+            return groupSymbols.get(level);
+        }
+        return "";
+    }
+
     public Map<Integer, String> getTypes() {
         return types;
     }
@@ -63,15 +70,6 @@ public class ModelKey {
             types = new HashMap<>();
         }
         this.types.put(group, type);
-        return this;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public ModelKey setType(String type) {
-        this.type = type;
         return this;
     }
 

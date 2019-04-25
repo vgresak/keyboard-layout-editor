@@ -28,6 +28,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -96,6 +97,7 @@ public class EditorController implements Initializable {
     private Map<List<Key>, Double> keyLines;
     private Key selectedKey;
     private CharacterMap characterMap = new CharacterMap();
+    private boolean handleComboSpecialInput;
 
     private KeyboardModelUpdater modelUpdater = lookup(KeyboardModelUpdater.class);
     private GroupState groupState = lookup(GroupState.class);
@@ -240,6 +242,7 @@ public class EditorController implements Initializable {
 
     public void comboLevelChanged() {
         updateSelectedKeyLabels();
+        setSpecialComboBoxToCurrentKey();
     }
 
     private void keyClicked(Key key) {
@@ -249,6 +252,21 @@ public class EditorController implements Initializable {
         key.select();
         selectedKey = key;
         updateSelectedKeyLabels();
+        setSpecialComboBoxToCurrentKey();
+    }
+
+    private void setSpecialComboBoxToCurrentKey() {
+        int levelIndex = comboLevel.getSelectionModel().getSelectedIndex();
+        int group = groupState.getGroup();
+        String selectedValue = selectedKey.getKey().getValue(group, levelIndex);
+        handleComboSpecialInput = false;
+        SelectionModel<String> selectionModel = comboSpecial.getSelectionModel();
+        selectionModel.clearSelection();
+        comboSpecial.getItems().stream()
+                .filter(selectedValue::equals)
+                .findFirst()
+                .ifPresent(selectionModel::select);
+        handleComboSpecialInput = true;
     }
 
     private void updateSelectedKeyLabels() {
@@ -260,9 +278,8 @@ public class EditorController implements Initializable {
         ModelKey key = selectedKey.getKey();
         String keycode = key.getKeycode();
         int group = groupState.getGroup();
-        List<String> valuesInGroup = selectedKey.getKey().getGroup(group);
         int levelIndex = comboLevel.getSelectionModel().getSelectedIndex();
-        String value = levelIndex >= 0 && levelIndex < valuesInGroup.size() ? valuesInGroup.get(levelIndex) : "";
+        String value = key.getValue(group, levelIndex);
         txtValue.setText(value);
         lblKeycode.setText(keycode);
         setEditationDisabled(false);
@@ -419,8 +436,10 @@ public class EditorController implements Initializable {
     }
 
     public void selectSpecialKeysym() {
-        String selectedItem = comboSpecial.getSelectionModel().getSelectedItem();
-        setValue(selectedItem);
+        if (handleComboSpecialInput) {
+            String selectedItem = comboSpecial.getSelectionModel().getSelectedItem();
+            setValue(selectedItem);
+        }
     }
 
     public void showAboutDialog() {
