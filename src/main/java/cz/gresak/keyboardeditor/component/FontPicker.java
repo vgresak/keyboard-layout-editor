@@ -9,13 +9,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class FontPicker extends Dialog<Font> {
     private Font selectedFont;
-    private Text sampleText;
+    private TextArea sampleText;
 
     public FontPicker() {
         setTitle("Font");
@@ -58,7 +59,7 @@ public class FontPicker extends Dialog<Font> {
         content.add(infoText, 0, 2);
         GridPane.setColumnSpan(infoText, 2);
 
-        sampleText = new Text("The quick brown fox jumps over the lazy dog");
+        sampleText = new TextArea("The quick brown fox jumps over the lazy dog");
         content.add(sampleText, 0, 3);
         GridPane.setColumnSpan(sampleText, 2);
 
