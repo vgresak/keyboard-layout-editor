@@ -56,7 +56,7 @@ public class ExportSettingsDialog extends Dialog<ExportConfig> {
                 exportSelectedGroups,
                 groupsRow1,
                 groupsRow2);
-        content.setPrefWidth(600);
+        content.setPrefWidth(400);
         content.setSpacing(10);
         content.setPadding(new Insets(10));
         return content;
