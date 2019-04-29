@@ -15,6 +15,9 @@ public class KeyboardModelUpdaterImpl implements KeyboardModelUpdater {
         for (Line line : keyboardModel.getLines()) {
             for (ModelKey key : line.getKeys()) {
                 Key parsedKey = config.getKey(key.getKeycode());
+                if (parsedKey == null) {
+                    continue;
+                }
                 key.setValues(parsedKey.getSymbolGroups());
                 key.setTypes(parsedKey.getTypes());
             }
