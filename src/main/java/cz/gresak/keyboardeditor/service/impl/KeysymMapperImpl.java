@@ -88,7 +88,7 @@ public class KeysymMapperImpl implements KeysymMapper {
         /**
          * Regex pattern matching single line in keysym_to_symbol file. First group = keysym; second group = symbol to be displayed.
          */
-        private static final Pattern LINE_PATTERN = Pattern.compile("^\uFEFF?(\\w+)\\s+\"(.*?)\"");
+        private static final Pattern LINE_PATTERN = Pattern.compile("^\uFEFF?(\\w+)\\s+\"(.*?)\"$");
 
         static {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(KeysymToSymbol.class.getResourceAsStream("/defaults/keysym_to_symbol"), StandardCharsets.UTF_16BE))) {
