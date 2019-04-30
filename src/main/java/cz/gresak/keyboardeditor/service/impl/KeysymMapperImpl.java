@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 public class KeysymMapperImpl implements KeysymMapper {
 
-    private static final Pattern UNICODE_VALUE_PATTERN = Pattern.compile("(U([0-9a-fA-F]{4}))|(0x100([0-9a-fA-F]{4}))");
+    private static final Pattern UNICODE_VALUE_PATTERN = Pattern.compile("(U([0-9a-fA-F]{4,}))|(0x100([0-9a-fA-F]{4,}))");
     private boolean showNoSymbol;
     private List<ShowNoSymbolChangedListener> listeners = new ArrayList<>();
 
