@@ -128,7 +128,7 @@ public class Key extends Pane {
                 break;
             case FOUR_SECTIONS:
                 widthToFitFont = Math.max(getWidth() / 2 - HPADDING * 2 - KEY_COLUMN_SPACE, 0);
-                heightToFitFont = Math.max(getHeight() / 2 - VPADDING * 4 - KEY_COLUMN_SPACE, 0);
+                heightToFitFont = Math.max(getHeight() / 2 - VPADDING * 4, 0);
                 break;
             default:
                 throw new RuntimeException("Unsupported key layout");
@@ -181,27 +181,17 @@ public class Key extends Pane {
     }
 
     private void setChars(List<String> keysyms) {
-        // create set of symbols, removing redundancies (e.g. functional keys often have the same value for every level)
-        List<String> symbolSet = keysyms.stream()
-                .limit(4)
-                .map(mapper::getSymbol)
-                .collect(Collectors.toList());
-        // If all displayed values would be the same, display the value just once (e.g. functional keys)
-        if (new HashSet<>(symbolSet).size() == 1) {
-            symbolSet = symbolSet.stream()
-                    .limit(1)
-                    .collect(Collectors.toList());
-        }
+        List<String> symbols = getSymbols(keysyms);
         keyLayout = KeyLayout.SINGLE_LINE;
-        if (symbolSet.isEmpty()) {
+        if (symbols.isEmpty()) {
             setTopLeft("");
             setBottomLeft("");
             setTopRight("");
             setBottomRight("");
             return;
         }
-        Iterator<String> symbolIterator = symbolSet.iterator();
-        if (symbolSet.size() == 1) {
+        Iterator<String> symbolIterator = symbols.iterator();
+        if (symbols.size() == 1) {
             setBottomLeft(symbolIterator.next());
             setTopLeft("");
             setTopRight("");
@@ -225,6 +215,29 @@ public class Key extends Pane {
             setTopRight("");
         }
         updateVisibility();
+    }
+
+    private List<String> getSymbols(List<String> keysyms) {
+        // create set of symbols, removing redundancies (e.g. functional keys often have the same value for every level)
+        List<String> symbols = keysyms.stream()
+                .limit(4)
+                .map(mapper::getSymbol)
+                .collect(Collectors.toList());
+        // remove trailing empty strings
+        for (int i = symbols.size() - 1; i >= 0; i--) {
+            if (StringUtils.isBlank(symbols.get(i))) {
+                symbols.remove(i);
+            } else {
+                break;
+            }
+        }
+        // If all displayed values would be the same, display the value just once (e.g. functional keys)
+        if (new HashSet<>(symbols).size() == 1) {
+            symbols = symbols.stream()
+                    .limit(1)
+                    .collect(Collectors.toList());
+        }
+        return symbols;
     }
 
     public ModelKey getKey() {
