@@ -38,13 +38,17 @@ public class LayoutExporterImpl implements LayoutExporter {
 
     private void export(KeyboardModel model, PrintWriter pw, ExportConfig exportConfig) {
         pw.println("xkb_symbols \"basic\" {");
-        printGroupNames(model, pw);
+        printGroupNames(model, pw, exportConfig);
         printKeys(model, pw, exportConfig);
         pw.println("};");
     }
 
-    private void printGroupNames(KeyboardModel model, PrintWriter pw) {
-        model.getGroupNames().forEach((key, value) -> pw.printf("\tname[group%d]=\"%s\";%n", key, value));
+    private void printGroupNames(KeyboardModel model, PrintWriter pw, ExportConfig exportConfig) {
+        model.getGroupNames().forEach((key, value) -> {
+            if (exportConfig.canGroupBeExported(key) || (groupState.getGroup() == key && exportConfig.isExportOnlySelectedGroup())) {
+                pw.printf("\tname[group%d]=\"%s\";%n", key, value);
+            }
+        });
     }
 
     private void printKeys(KeyboardModel model, PrintWriter pw, ExportConfig exportConfig) {
