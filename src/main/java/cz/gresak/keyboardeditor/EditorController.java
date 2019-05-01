@@ -334,6 +334,10 @@ public class EditorController implements Initializable {
     }
 
     public void exportLayout() {
+        if (exportConfig.isShowSettingsOnExport()) {
+            showExportLayoutSettings();
+        }
+
         LayoutExporter exporter = lookup(LayoutExporter.class);
         Window window = editorPane.getScene().getWindow();
         File file = FileDialog.showSaveDialog(window);

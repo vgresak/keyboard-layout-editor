@@ -6,6 +6,7 @@ public class ExportConfig {
     private boolean exportOnlySelectedGroup;
     private boolean[] groupsToExport;
     private boolean exportType;
+    private boolean showSettingsOnExport;
 
     public ExportConfig(ExportConfig exportConfig) {
         this();
@@ -13,6 +14,7 @@ public class ExportConfig {
             this.exportOnlySelectedGroup = exportConfig.exportOnlySelectedGroup;
             this.exportType = exportConfig.exportType;
             this.groupsToExport = Arrays.copyOf(exportConfig.groupsToExport, exportConfig.groupsToExport.length);
+            this.showSettingsOnExport = exportConfig.showSettingsOnExport;
         }
     }
 
@@ -20,6 +22,7 @@ public class ExportConfig {
         this.exportOnlySelectedGroup = true;
         this.exportType = true;
         this.groupsToExport = new boolean[8];
+        this.showSettingsOnExport = true;
     }
 
     public boolean isExportOnlySelectedGroup() {
@@ -58,6 +61,15 @@ public class ExportConfig {
 
     public ExportConfig setExportType(boolean exportType) {
         this.exportType = exportType;
+        return this;
+    }
+
+    public boolean isShowSettingsOnExport() {
+        return showSettingsOnExport;
+    }
+
+    public ExportConfig setShowSettingsOnExport(boolean showSettingsOnExport) {
+        this.showSettingsOnExport = showSettingsOnExport;
         return this;
     }
 }

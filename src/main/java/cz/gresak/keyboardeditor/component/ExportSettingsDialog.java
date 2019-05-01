@@ -22,6 +22,7 @@ public class ExportSettingsDialog extends Dialog<ExportConfig> {
     private CheckBox checkExportType;
     private RadioButton exportOnlySelectedGroup;
     private RadioButton exportSelectedGroups;
+    private CheckBox checkShowDialog;
     private CheckBox[] groups = new CheckBox[8];
 
     public ExportSettingsDialog(ExportConfig currentConfig) {
@@ -37,7 +38,6 @@ public class ExportSettingsDialog extends Dialog<ExportConfig> {
     private Node initContent() {
         checkExportType = new CheckBox("Export type");
         checkExportType.setOnAction(this::onExportTypeChanged);
-        Separator separator = new Separator(Orientation.HORIZONTAL);
         exportSelectedGroupToggle = new ToggleGroup();
         exportOnlySelectedGroup = new RadioButton("Export only currently selected group");
         exportOnlySelectedGroup.setUserData(true);
@@ -47,15 +47,20 @@ public class ExportSettingsDialog extends Dialog<ExportConfig> {
         exportSelectedGroups.setUserData(false);
         exportSelectedGroups.setOnAction(this::onExportOnlySelectedGroupsChanged);
         exportSelectedGroups.setToggleGroup(exportSelectedGroupToggle);
+        checkShowDialog = new CheckBox("Show this dialog before export");
+        checkShowDialog.setOnAction(event -> config.setShowSettingsOnExport(checkShowDialog.isSelected()));
         HBox groupsRow1 = getFirstGroupsRow();
         HBox groupsRow2 = getSecondGroupsRow();
         VBox content = new VBox(
                 checkExportType,
-                separator,
+                new Separator(Orientation.HORIZONTAL),
                 exportOnlySelectedGroup,
                 exportSelectedGroups,
                 groupsRow1,
-                groupsRow2);
+                groupsRow2,
+                new Separator(Orientation.HORIZONTAL),
+                checkShowDialog
+        );
         content.setPrefWidth(400);
         content.setSpacing(10);
         content.setPadding(new Insets(10));
@@ -71,6 +76,7 @@ public class ExportSettingsDialog extends Dialog<ExportConfig> {
             checkBox.setSelected(groupsToExport[index]);
             checkBox.setDisable(config.isExportOnlySelectedGroup());
         }
+        checkShowDialog.setSelected(config.isShowSettingsOnExport());
     }
 
     private HBox getFirstGroupsRow() {
