@@ -17,6 +17,10 @@ public class FileDialog {
     }
 
     public static File showSaveDialog(Window window) {
-        return fileChooser.showSaveDialog(window);
+        File chosenFile = fileChooser.showSaveDialog(window);
+        if (chosenFile != null) {
+            fileChooser.setInitialDirectory(chosenFile.getParentFile());
+        }
+        return chosenFile;
     }
 }
