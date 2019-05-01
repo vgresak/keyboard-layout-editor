@@ -10,6 +10,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -119,20 +120,29 @@ public class CurrentConfigLoaderImpl implements CurrentConfigLoader {
                 String symbolsGroup = symbolsGroupMatcher.group();
                 Matcher groupKeysymMatcher = groupKeysymPattern.matcher(symbolsGroup);
                 while (groupKeysymMatcher.find()) {
-                    int group = groupKeysymMatcher.group(2) == null ? 1 : Integer.parseInt(groupKeysymMatcher.group(2));
+                    String matchedGroup = groupKeysymMatcher.group(2);
                     List<String> keysyms = Arrays.stream(groupKeysymMatcher.group(3).split(","))
                             .map(String::trim)
                             .collect(Collectors.toList());
-                    groupsOfKeysyms.put(group, keysyms);
+                    if (matchedGroup == null) {
+                        // group not specified - load keysyms to each group
+                        for (int group = 1; group <= 8; group++) {
+                            groupsOfKeysyms.put(group, new ArrayList<>(keysyms));
+                        }
+                        break;
+                    } else {
+                        int group = Integer.parseInt(matchedGroup);
+                        groupsOfKeysyms.put(group, keysyms);
+                    }
                 }
             }
-            Map<Integer, String> types = getTypes(bracesBody, groupsOfKeysyms.keySet());
+            Map<Integer, String> types = getKeyTypes(bracesBody, groupsOfKeysyms.keySet());
             Key key = new Key(groupsOfKeysyms, types);
             result.putKey(keycode, key);
         }
     }
 
-    private Map<Integer, String> getTypes(String bracesBody, Set<Integer> groups) {
+    private Map<Integer, String> getKeyTypes(String bracesBody, Set<Integer> groups) {
         Pattern globalTypePattern = Pattern.compile("type\\s*=\\s*\"(.*?)\"");
         Pattern groupTypePattern = Pattern.compile("type\\[[Gg]roup(\\d+)]\\s*=\\s*\"(.*?)\"");
         String globalType = getFirstGroupIfMatches(bracesBody, globalTypePattern);
