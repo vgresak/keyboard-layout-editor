@@ -349,7 +349,7 @@ public class EditorController implements Initializable {
 
     private void showExportFinishedAlert(File file) {
         String newSymbolsFileName = file.getName();
-        exportCommandHint = String.format("sudo cp \"%s\" \"%s%s\" -i\nsetxkbmap -layout \"%s\"", file.getAbsolutePath(), XKB_SYMBOLS_DIRECTORY, newSymbolsFileName, newSymbolsFileName);
+        exportCommandHint = String.format("sudo cp -i \"%s\" \"%s%s\"\nsetxkbmap -layout \"%s\"", file.getAbsolutePath(), XKB_SYMBOLS_DIRECTORY, newSymbolsFileName, newSymbolsFileName);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Keyboard layout export complete");
         alert.setHeaderText("Keyboard layout export finished successfully");
