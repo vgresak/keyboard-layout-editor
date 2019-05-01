@@ -20,6 +20,7 @@ public class FileDialog {
         File chosenFile = fileChooser.showSaveDialog(window);
         if (chosenFile != null) {
             fileChooser.setInitialDirectory(chosenFile.getParentFile());
+            fileChooser.setInitialFileName(chosenFile.getName());
         }
         return chosenFile;
     }
