@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 public class Key extends Pane {
 
     private static final int HPADDING = 4;
-    private static final int VPADDING = 2;
+    private static final int VPADDING = 4;
     private static final int KEY_COLUMN_SPACE = 6;
     private final ModelKey key;
 
@@ -124,11 +124,11 @@ public class Key extends Pane {
             case SINGLE_LINE:
             case TWO_LINE:
                 widthToFitFont = Math.max(getWidth() - HPADDING * 2, 0);
-                heightToFitFont = Math.max(getHeight() / 2 - VPADDING * 4, 0);
+                heightToFitFont = Math.max(getHeight() / 2 - VPADDING * 2, 0);
                 break;
             case FOUR_SECTIONS:
                 widthToFitFont = Math.max(getWidth() / 2 - HPADDING * 2 - KEY_COLUMN_SPACE, 0);
-                heightToFitFont = Math.max(getHeight() / 2 - VPADDING * 4, 0);
+                heightToFitFont = Math.max(getHeight() / 2 - VPADDING * 2, 0);
                 break;
             default:
                 throw new RuntimeException("Unsupported key layout");
@@ -164,7 +164,7 @@ public class Key extends Pane {
         FontMetrics bottomRightFont = fontLoader.getFontMetrics(bottomRightChar.getFont());
         // vertical alignment
         double topLine = Math.max(topLeftFont.getLineHeight(), topRightFont.getLineHeight());
-        double bottomLine = Math.max(bottomLeftFont.getLineHeight(), bottomRightFont.getLineHeight()) + topLine;
+        double bottomLine = Math.max(topLine, getHeight() / 2 - VPADDING * 2) + Math.max(bottomLeftFont.getLineHeight(), bottomRightFont.getLineHeight());
         topLeftChar.setLayoutY(topLine);
         topRightChar.setLayoutY(topLine);
         bottomLeftChar.setLayoutY(bottomLine);
