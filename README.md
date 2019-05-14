@@ -34,3 +34,6 @@ You can run the application using the <code>java -jar keyboard-layout-editor-all
 
 ## Creating new XKB variants using the editor
 Working with XKB variants is not supported by the editor for now. Exported configuration is <code>xkb_symbols "basic"</code>. However, you can define your variant in different group and set export settings so that you export only current group without type - this way you get only symbols definitions for the current group. You can then use the definition however you like (e.g. define your own custom XKB variant).
+
+## License
+Keyboard layout editor is MIT licensed (see LICENSE file).
